@@ -1,93 +1,42 @@
+# Radiation Classification System using Support Vector Machine (SVM)
+![WhatsApp Image 2026-02-05 at 3 36 03 PM](https://github.com/user-attachments/assets/f9510d55-ac90-4079-ae40-60000288fb62)
 
-Project: SVM Particle Classification & Data Auditing
-Topic: Django Full-Stack Development & ML Integration
+![WhatsApp Image 2026-02-05 at 3 40 36 PM](https://github.com/user-attachments/assets/fb403c27-b058-4e73-ae03-2153c3d20d6a)
 
-📖 Project Overview
-BugsOut Systems is a full-stack radiation intelligence platform designed to classify high-energy particles detected by atmospheric Cherenkov telescopes. By bridging the gap between Machine Learning (SVM) and web architecture (Django), the system provides a high-visibility interface for real-time telemetry analysis and data auditing.
 
-The system specifically targets the MAGIC Gamma Ray Telescope Dataset to differentiate between Gamma (Signal) and Hadron (Noise) particles.
-
-🏗️ System Architecture (MVT)
-The project follows the Model-View-Template architecture within Django:
-
-Model (The Archive): A database blueprint storing 10 distinct scientific features and the resulting AI prediction.
-
-View (The Logic): The system's "Brain" that handles data cleaning, executes the Support Vector Machine (SVM) algorithm, and classifies the particle.
-
-Template (The Interface): A "Gold & Black" high-visibility terminal designed for laboratory-style interactions.
-
-🧪 Machine Learning Details
-The core classifier is built using a Support Vector Machine (SVM) model.
-
-Scientific Features
-The model analyzes 11 specific columns from the MAGIC dataset:
-
-fLength: Continuous
-
-fWidth: Continuous
-
-fSize: 10-log of sum of content of all pixels
-
-fConc: Ratio of sum of two highest pixels over fSize
-
-fConc1: Ratio of highest pixel over fSize
-
-fAsym: Distance from highest pixel to center
-
-fM3Long: 3rd root of third moment along major axis
-
-fM3Trans: 3rd root of third moment along minor axis
-
-fAlpha: Angle of major axis with vector to origin
-
-fDist: Distance from origin to center of ellipse
-
-class: g (Gamma / Signal), h (Hadron / Background)
-
-Implementation Steps
-Data Cleaning: Handling the Magic04 dataset and encoding classes (Gamma = 1, Hadron = 0).
-
-Scaling: Standardizing features to ensure model accuracy.
-
-Persistence: The trained model and scalar objects are saved as .pkl files for production use.
-
-🚀 Key Features
-High-Visibility UI: Uses a "Gold & Glow" theme with CSS variables (--gold-primary) for a modern industrial look.
-
-Radiation Terminal: A customized Django interface for manual telemetry entry.
-
-Official Audit Report: A specialized @media print CSS block that converts the dark web app into a professional white-paper report for printing.
-
-Security: Integrated CSRF protection ensures only authorized BugsOut terminals can communicate with the server.
-
-🛠️ Installation & Setup
-Clone the Repository:
-
-Bash
-git clone https://github.com/your-username/bugsout-systems.git
-cd bugsout-systems
-Install Dependencies:
-
-Bash
-pip install django pandas scikit-learn joblib matplotlib
-Run Migrations:
-
-Bash
-python manage.py migrate
-Start the Server:
-
-Bash
-python manage.py runserver
-📊 Testing the System
-Use the following telemetry strings in the terminal to verify classification accuracy:
-
-Gamma (Signal): 28.76, 16.03, 2.64, 0.39, 0.20, 23.41, 12.01, 8.12, 2.14, 150.11
-
-Hadron (Noise): 95.82, 25.15, 3.12, ... (Refer to SVMModelBuild.ipynb for more test data)
+![WhatsApp Image 2026-02-05 at 3 36 02 PM](https://github.com/user-attachments/assets/1f600f2f-2f8c-45af-a591-0ebd61e84069)
 
 
 
+This Django-based web application classifies atmospheric radiation into **Gamma (Signal)** or **Hadron (Background)**. It utilizes a **Support Vector Machine (SVM)** model to find the optimal hyperplane that separates the two particle classes based on Cherenkov telescope data.
+
+## 🧠 Machine Learning: Support Vector Machine
+The core of this project is an SVM classifier. SVM was chosen for its effectiveness in high-dimensional spaces and its ability to create a clear margin of separation between the complex features of Gamma and Hadron showers.
 
 
 
-# ML-and-Django
+### Model Integration
+The model is integrated directly into the Django backend:
+- **Persistence:** The trained SVM model is loaded via `joblib` or `pickle` inside `views.py`.
+- **Inference:** User inputs from the frontend are processed as a feature vector and passed to `model.predict()`.
+- **Persistence:** Results are stored in the database linked to the SVM prediction output.
+
+## 🚀 Features
+- **SVM Prediction Engine:** High-accuracy classification using a radial basis function (RBF) or linear kernel.
+- **Django Integration:** A seamless bridge between the Python ML logic and the web interface.
+- **Database Tracking:** Every prediction is logged with its input parameters for further data analysis.
+
+## 🛠️ Technical Implementation
+### Views.py Logic
+In your `views.py`, the flow operates as follows:
+1. Capture `POST` data from the input form.
+2. Scale the data (if a scaler was used during training).
+3. Run the SVM model: `prediction = svm_model.predict(input_features)`.
+4. Save the instance to the database: `ClassificationResult.objects.create(...)`.
+5. Return the result to the template.
+
+## 📂 Project Structure
+
+<img width="398" height="686" alt="Screenshot 2026-02-05 152211" src="https://github.com/user-attachments/assets/b3769d07-7bc7-4995-84d1-03b14225b86e" />
+
+# Any one who want to contribute they can add their valuable code
